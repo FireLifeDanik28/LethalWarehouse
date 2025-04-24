@@ -12,6 +12,19 @@ namespace LethalWarehouse
             public double WeightKg { get; set; }
             public int WeirdnessLevel { get; set; }
             public bool IsFragile { get; set; }
+
+            public Item(string name, double weightKg, int weirdnessLevel, bool isFragile)
+            {
+                Name = name;
+                WeightKg = Math.Round(weightKg, 3);//zaokrąglenie do 3 po ,
+                WeirdnessLevel = weirdnessLevel;
+                IsFragile = isFragile;
+            }
+            //Desc 
+            public string Desc()
+            {
+                return $"{{\n\t\"name\": \"{Name}\",\n\t\"weight_kg\": {WeightKg},\n\t\"Weird 1-10\": {WeirdnessLevel},\n\t\"is_fragile\": \"{(IsFragile ? "YES" : "NO")}\n}}";
+            }
         }
         public class Warehouse
         {
