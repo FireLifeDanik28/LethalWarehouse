@@ -38,6 +38,44 @@ namespace LethalWarehouse
                 MaxTotalWeight = Math.Round(maxTotalWeight, 3);
                 Items = new List<Item>();
             }
+            public int CurrentItemCount => Items.Count;
+            public double CurrentTotalWeight => Items.Sum(i => i.WeightKg);
+            public (bool, string) AddItem(Item item)
+            {
+                if (CurrentItemCount >= Capacity)
+                    return (false, "Error: Storage full");
+                if (CurrentTotalWeight + item.WeightKg > MaxTotalWeight)
+                    return (false, "Error: This item weights too much(still less than ur mom lmao)");
+                if (item.IsFragile && item.WeirdnessLevel == 7 && CurrentItemCount >= Capacity / 2)
+                    return (false, "Error: This item is too dangerous, its strange level is 7 and it's fragile.\nNot possible to storage rn");
+                Items.Add(item);
+                return (true, "Item added succesfully ☺");
+            }
+            public bool RemoveItem(string itemName)
+            {
+                var item = Items.FirstOrDefault(i => i.Name == itemName);
+                if (item != null)
+                {
+                    Items.Remove(item);
+                    return true;
+                }
+                return false;
+            }
+            public List<Item> GetFragileOrHeavy(double weightThreshold)
+            {
+                return Items.Where(i => i.IsFragile || i.WeightKg > weightThreshold).ToList();
+            }
+            public double GetAverageWeirdness()
+            {
+                return Items.Count == 0 ? 0 : Items.Average(i => i.WeirdnessLevel);
+            }
+            public void PrintAll()
+            {
+                foreach (var item in Items)
+                {
+                    Console.WriteLine(item.Desc());
+                }
+            }
         }
         public static void Main()
         {
@@ -47,8 +85,10 @@ namespace LethalWarehouse
             //max waga magazynu
             Console.WriteLine("Enter warehouse max weight in kg: ");
             double maxWeight = double.Parse(Console.ReadLine());
+            
+            Warehouse warehouse = new Warehouse(capacity, maxWeight);
 
-            //Warehouse warehouse = new Warehouse(capacity, maxWeight);
+            Console.WriteLine("Storage created. add items thru frontend idgaf");
         }
     }
 }
