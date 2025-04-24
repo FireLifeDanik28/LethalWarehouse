@@ -28,18 +28,27 @@ namespace LethalWarehouse
         }
         public class Warehouse
         {
-            //nie wiem. list
+            public int Capacity { get; private set; }
+            public double MaxTotalWeight { get; private set; }
+            public List<Item> Items { get; private set; }
+
+            public Warehouse(int capacity, double maxTotalWeight)
+            {
+                Capacity = capacity;
+                MaxTotalWeight = Math.Round(maxTotalWeight, 3);
+                Items = new List<Item>();
+            }
         }
         public static void Main()
         {
             //max pojemność magazynu
             Console.WriteLine("Enter warehouse item capacity: ");
-            int maxCapacity = int.Parse(Console.ReadLine());
+            int capacity = int.Parse(Console.ReadLine());
             //max waga magazynu
             Console.WriteLine("Enter warehouse max weight in kg: ");
             double maxWeight = double.Parse(Console.ReadLine());
 
-            //Warehouse warehouse = new Warehouse(maxCapacity, maxWeight);
+            //Warehouse warehouse = new Warehouse(capacity, maxWeight);
         }
     }
 }
