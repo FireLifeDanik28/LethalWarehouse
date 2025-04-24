@@ -90,7 +90,7 @@ namespace LethalWarehouse
             //else
             while (true)
             {
-                Console.WriteLine("\nLethalTerminal™ menu");
+                Console.WriteLine("\nLethalMenu");
                 Console.WriteLine("1) Add item");
                 Console.WriteLine("2) Remove item");
                 Console.WriteLine("3) SELECT *(all)");
